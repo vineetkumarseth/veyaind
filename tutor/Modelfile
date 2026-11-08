@@ -1,0 +1,14 @@
+FROM ./veya-tutor-f16.gguf
+# Qwen "ChatML" chat format. If answers look strange, copy the TEMPLATE from the base model instead:
+#   ollama pull qwen2.5-coder:1.5b && ollama show qwen2.5-coder:1.5b --modelfile
+TEMPLATE """{{- range $i, $_ := .Messages }}
+{{- $last := eq (len (slice $.Messages $i)) 1 -}}
+<|im_start|>{{ .Role }}
+{{ .Content }}<|im_end|>
+{{ if $last }}<|im_start|>assistant
+{{ end }}
+{{- end }}"""
+PARAMETER stop "<|im_end|>"
+PARAMETER stop "<|im_start|>"
+PARAMETER temperature 0.4
+PARAMETER num_ctx 4096

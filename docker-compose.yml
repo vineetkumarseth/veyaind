@@ -1,0 +1,30 @@
+# Veya + Caddy (automatic HTTPS). Pehle .env banao (.env.example se), phir:  docker compose up -d --build
+services:
+  veya:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      VEYA_DATA_DIR: /data
+    volumes:
+      - veya-data:/data        # database, .veya_key aur media yahin; iska backup lo
+    expose:
+      - "8000"                 # bahar publish nahi hota, sirf Caddy ke through
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - veya
+volumes:
+  veya-data:
+  caddy-data:
+  caddy-config:

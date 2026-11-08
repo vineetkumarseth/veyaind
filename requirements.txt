@@ -1,0 +1,8 @@
+cryptography
+fastapi
+faster-whisper
+httpx
+pypdf
+python-docx
+python-pptx
+uvicorn

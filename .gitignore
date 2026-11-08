@@ -1,0 +1,32 @@
+venv/
+veya.db
+.veya_key
+__pycache__/
+
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+
+# Local runtime data
+*.db
+*.sqlite
+*.sqlite3
+media/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local system files
+.DS_Store
+
+# Model weights and local model files
+*.gguf
+*.safetensors
+*.pt
+*.pth
+.ollama/
+eval/results.csv
